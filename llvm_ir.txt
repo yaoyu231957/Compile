@@ -1,0 +1,80 @@
+declare i32 @getint()
+declare i32 @getchar()
+declare void @putint(i32)
+declare void @putch(i32)
+declare void @putstr(i8*)
+
+
+define dso_local i32 @modify_array(i32* %array_param_0 ) {
+%func_2 = alloca i32
+%func_3 = alloca i8
+%array_param_9 = alloca i32*
+store i32* %array_param_0, i32** %array_param_9
+%func_10 = load i32*, i32** %array_param_9
+store i32 1, i32* %func_2
+store i8 43, i8* %func_3
+%func_4 = load i8, i8* %func_3
+%func_5 = zext i8 %func_4 to i32
+%func_6 = zext i8 43 to i32
+%func_7 = icmp eq i32 %func_5, %func_6
+br i1 %func_7, label %func_8, label %func_19
+
+func_8:                                               ;pred = %0
+%func_11 = load i32, i32* %func_2
+%func_12 = getelementptr inbounds i32, i32* %func_10, i32 %func_11
+%func_13 = load i32, i32* %func_2
+%func_14 = getelementptr inbounds i32, i32* %func_10, i32 %func_13
+%func_15 = load i32, i32* %func_14
+%func_16 = load i32, i32* %func_2
+%func_17 = add nsw i32 %func_15, %func_16
+%func_18 = load i32, i32* %func_2
+store i32 %func_17, i32* %func_12
+br label %func_28
+
+func_19:                                               ;pred = %0
+%func_20 = load i32, i32* %func_2
+%func_21 = getelementptr inbounds i32, i32* %func_10, i32 %func_20
+%func_22 = load i32, i32* %func_2
+%func_23 = getelementptr inbounds i32, i32* %func_10, i32 %func_22
+%func_24 = load i32, i32* %func_23
+%func_25 = load i32, i32* %func_2
+%func_26 = sub nsw i32 %func_24, %func_25
+%func_27 = load i32, i32* %func_2
+store i32 %func_26, i32* %func_21
+br label %func_28
+
+func_28:
+ret i32 0
+}
+
+define dso_local i32 @func(i32 %param_0, i8 %param_1 ) {
+%param_3 = alloca i32
+%param_5 = alloca i8
+store i32 %param_0, i32* %param_3
+store i8 %param_1, i8* %param_5
+%func_4 = load i32, i32* %param_3
+%func_6 = load i8, i8* %param_5
+%func_7 = zext i8 %func_6 to i32
+%func_8 = add nsw i32 %func_4, %func_7
+ret i32 %func_8
+}
+
+define dso_local i32 @main() {
+%main_1 = alloca [5 x i32]
+%main_7 = alloca i32
+%main_2 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 0
+store i32 1, i32* %main_2
+%main_3 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 1
+store i32 2, i32* %main_3
+%main_4 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 2
+store i32 0, i32* %main_4
+%main_5 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 3
+store i32 0, i32* %main_5
+%main_6 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 4
+store i32 0, i32* %main_6
+%main_8 = getelementptr inbounds [5 x i32], [5 x i32]* %main_1, i32 0 ,i32 0
+%main_9 = call i32 @modify_array(i32* %main_8)
+store i32 %main_9, i32* %main_7
+ret i32 0
+}
+

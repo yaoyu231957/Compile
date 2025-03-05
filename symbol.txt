@@ -1,0 +1,10 @@
+1 modify_array IntFunc
+1 func IntFunc
+2 arr IntArray
+2 i Int
+2 op Char
+5 a Int
+5 b Char
+6 nums IntArray
+6 total Int
+

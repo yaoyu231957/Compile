@@ -1,0 +1,9 @@
+clang -emit-llvm -S libsysy.c -o lib.ll
+
+clang -emit-llvm -S testfile.c -o testfile.ll
+
+llvm-link llvm_ir.txt lib.ll -S -o out.ll
+
+llvm-link testfile.ll lib.ll -S -o out.ll
+
+lli out.ll
